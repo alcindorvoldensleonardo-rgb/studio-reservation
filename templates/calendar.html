@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Calendrier Studio</title>
+<link rel="stylesheet" href="/static/style.css">
+<style>
+.calendar {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    max-width: 400px;
+    margin: auto;
+}
+.slot {
+    padding: 15px;
+    border-radius: 10px;
+    text-align: center;
+    cursor: pointer;
+    font-weight: bold;
+}
+.free {
+    background: #22c55e;
+}
+.booked {
+    background: #ef4444;
+    cursor: not-allowed;
+}
+.time-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.time-slot {
+    padding: 14px;
+    border-radius: 12px;
+    text-align: center;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s ease;
+    user-select: none;
+}
+
+/* Disponible */
+.time-free {
+    background: linear-gradient(135deg, #22c55e, #16a34a);
+    color: white;
+}
+
+/* Réservé */
+.time-booked {
+    background: #374151;
+    color: #9ca3af;
+    cursor: not-allowed;
+}
+
+/* Sélectionné */
+.time-selected {
+    outline: 3px solid #38bdf8;
+    transform: scale(1.05);
+}
+</style>
+</head>
+
+<body>
+
+<h1>📅 Choisissez votre créneau</h1>
+
+<input type="date" id="date" style="display:block;margin:auto">
+<div class="time-grid" id="calendar"></div>   
+    <!-- <form action="/reserve" method="POST" id="confirmForm" style="margin-top:30px; text-align:center;"> -->
+<form action="/create-checkout-session" method="POST">
+    
+    <input type="hidden" name="date" id="formDate">
+    <input type="hidden" name="time" id="formTime">
+
+    <input type="text" name="name" placeholder="Nom complet" required
+           style="padding:12px;width:90%;max-width:300px;margin:10px;border-radius:10px;border:none;">
+
+    <input type="email" name="email" placeholder="Email" required
+           style="padding:12px;width:90%;max-width:300px;margin:10px;border-radius:10px;border:none;">
+
+    <br>
+
+    <button type="submit" id="confirmBtn" disabled
+            style="padding:14px 30px;border-radius:12px;border:none;
+                   background:#38bdf8;color:black;font-weight:bold;
+                   opacity:0.5;cursor:not-allowed;">
+        Confirmer la réservation
+    </button>
+</form>
+
+<br>
+
+    <!--<div class="calendar" id="calendar"></div> -->
+
+
+<script src="/static/calendar.js"></script>
+
+
+</body>
+</html>
