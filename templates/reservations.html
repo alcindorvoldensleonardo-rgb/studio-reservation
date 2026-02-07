@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Réservations Studio</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+
+<body>
+
+<h1>📅 Réservations Studio</h1>
+
+<table>
+
+<tr>
+<th>Nom</th>
+<th>Email</th>
+<th>Date</th>
+<th>Heure</th>
+</tr>
+
+{% for r in data %}
+<tr>
+<td>{{ r[1] }}</td>
+<td>{{ r[2] }}</td>
+<td>{{ r[3] }}</td>
+<td>{{ r[4] }}</td>
+</tr>
+{% endfor %}
+
+</table>
+
+<a href="/">← Retour</a>
+
+</body>
+</html>
