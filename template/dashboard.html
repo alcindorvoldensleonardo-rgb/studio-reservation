@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Dashboard Admin</title>
+<link rel="stylesheet" href="/static/style.css">
+<style>
+.dashboard {
+    max-width: 900px;
+    margin: 40px auto;
+}
+.dashboard h1 {
+    text-align: center;
+}
+.actions {
+    text-align: center;
+    margin-bottom: 20px;
+}
+.actions a {
+    margin: 0 10px;
+    color: #38bdf8;
+    text-decoration: none;
+    font-weight: bold;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #020617;
+    border-radius: 12px;
+    overflow: hidden;
+}
+th, td {
+    padding: 12px;
+    text-align: center;
+}
+th {
+    background: #38bdf8;
+    color: black;
+}
+tr:nth-child(even) {
+    background: #0f172a;
+}
+.delete {
+    color: #ef4444;
+    text-decoration: none;
+    font-weight: bold;
+}
+</style>
+</head>
+
+<body>
+
+<div class="dashboard">
+
+<h1>🎛 Dashboard Studio</h1>
+
+<div class="actions">
+    <a href="/calendar">📅 Voir calendrier client</a>
+    <a href="/reservations">📋 Vue tableau</a>
+    <a href="/logout">🚪 Déconnexion</a>
+</div>
+<table>
+<tr>
+    <th>Nom</th>
+    <th>Email</th>
+    <th>Date</th>
+    <th>Heure</th>
+    <th>Action</th>
+</tr>
+
+{% for r in data %}
+<tr>
+    <td>{{ r[1] }}</td>
+    <td>{{ r[2] }}</td>
+    <td>{{ r[3] }}</td>
+    <td>{{ r[4] }}</td>
+    <td>
+        <a href="/delete/{{ r[0] }}" class="delete">❌ Supprimer</a>
+    </td>
+</tr>
+{% endfor %}
+</table>
+<!-- MOBILE VERSION -->
+<div class="mobile-cards">
+
+{% for r in data %}
+<div class="card">
+    <p><strong>👤 Nom :</strong> {{ r[1] }}</p>
+    <p><strong>📧 Email :</strong> {{ r[2] }}</p>
+    <p><strong>📅 Date :</strong> {{ r[3] }}</p>
+    <p><strong>⏰ Heure :</strong> {{ r[4] }}</p>
+
+    <a href="/delete/{{ r[0] }}" class="delete">❌ Supprimer</a>
+</div>
+{% endfor %}
+
+</div>
+</div>
+
+</body>
+</html>
