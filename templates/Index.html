@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Studio Photo Premium</title>
+  <!--<link rel="stylesheet" href="/static/style.css"> -->
+
+<style>
+
+/* HERO */
+
+.hero {
+    height: 45vh;
+    background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.9)),
+                url("https://images.unsplash.com/photo-1516035069371-29a1b244cc32");
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+
+    animation: fadeHero 1.2s ease;
+}
+
+.hero h1 {
+    font-size: 38px;
+    margin-bottom: 10px;
+}
+
+.hero p {
+    color: #cbd5f5;
+    font-size: 16px;
+}
+
+/* FORM CARD PREMIUM */
+
+.card {
+    background: #111827;
+    width: 380px;
+    margin: -50px auto 40px auto;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 0 40px rgba(0,0,0,0.7);
+    animation: fadeIn 1s ease;
+}
+
+.card h2 {
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.card input {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border-radius: 8px;
+    border: none;
+    background: #1f2937;
+    color: white;
+}
+
+.card button {
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    border: none;
+    background: #38bdf8;
+    color: black;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.card button:hover {
+    background: #0ea5e9;
+    transform: scale(1.05);
+}
+
+.footer-link {
+    text-align: center;
+}
+
+/* Animations */
+
+@keyframes fadeHero {
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
+
+@keyframes fadeIn {
+    from {opacity: 0; transform: translateY(20px);}
+    to {opacity: 1; transform: translateY(0);}
+}
+
+@media(max-width: 500px) {
+    .card {
+        width: 90%;
+    }
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="hero">
+
+<h1>📸 Studio Photo Premium</h1>
+<p>Capturez vos moments avec élégance</p>
+
+</div>
+
+<div class="card">
+
+<h2>Réserver votre séance</h2>
+
+<form action="/reserve" method="POST">
+
+<input type="text" name="name" placeholder="Nom complet" required>
+
+<input type="email" name="email" placeholder="Email" required>
+
+<input type="date" name="date" required>
+
+<input type="time" name="time" required>
+
+<button type="submit">Réserver maintenant</button>
+
+</form>
+
+</div>
+
+<div class="footer-link">
+  <!--<a href="/reservations">Voir les réservations →</a> -->
+  <a href="{{ url_for('reservations') }}">Voir les réservations</a>
+</div>
+
+</body>
+</html>
