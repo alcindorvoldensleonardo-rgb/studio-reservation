@@ -61,7 +61,9 @@ def confirmation():
 @app.route("/payment-success")
 def payment_success():
     return render_template("payment_success.html")
-    
+@app.route("/create-checkout-session", methods=["POST"])
+def create_checkout_session():
+    return "ROUTE OK"    
             
 #dashboard============================
 @app.route("/dashboard")
