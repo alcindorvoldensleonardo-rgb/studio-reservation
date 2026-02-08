@@ -128,38 +128,7 @@ Merci d’avoir choisi notre studio photo.
         print("Erreur email :", e)
 #endconfemail===================================================
 #stripe============================================
-@app.route("/create-checkout-session", methods=["POST"])
-def create_checkout_session():
-    name = request.form["name"]
-    email = request.form["email"]
-    date = request.form["date"]
-    time = request.form["time"]
-
-    session_stripe = stripe.checkout.Session.create(
-        payment_method_types=["card"],
-        mode="payment",
-        customer_email=email,
-        metadata={
-            "name": name,
-            "email": email,
-            "date": date,
-            "time": time
-        },
-        line_items=[{
-            "price_data": {
-                "currency": "usd",
-                "product_data": {
-                    "name": "Séance photo studio"
-                },
-                "unit_amount": 5000,
-            },
-            "quantity": 1
-        }],
-        success_url="https://TON-APP.onrender.com/payment-success",
-        cancel_url="https://TON-APP.onrender.com/calendar"
-    )
-
-    return redirect(session_stripe.url)
+stripe.api_key = os.getenv("STRIPE_SECRET_KEY")
 #endstripe==============================================
 
 @app.route("/webhook", methods=["POST"])
