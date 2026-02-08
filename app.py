@@ -65,37 +65,36 @@ def confirmation():
 @app.route("/payment-success")
 def payment_success():
     return render_template("payment_success.html")
+
 @app.route("/create-checkout-session", methods=["POST"])
 def create_checkout_session():
-    name = "Test"
-    email = "test@test.com"
-    date = "2026-02-07"
-    time = "10:00"
+    try:
+        session = stripe.checkout.Session.create(
+            mode="payment",
+            payment_method_types=["card"],
+            line_items=[{
+                "price_data": {
+                    "currency": "usd",
+                    "product_data": {
+                        "name": "Séance photo studio"
+                    },
+                    "unit_amount": 5000
+                },
+                "quantity": 1
+            }],
+            success_url="https://studio-reservation.onrender.com/payment-success",
+            cancel_url="https://studio-reservation.onrender.com/calendar"
+        )
 
-    session = stripe.checkout.Session.create(
-        payment_method_types=["card"],
-        mode="payment",
-        customer_email=email,
-        metadata={
-            "name": name,
-            "email": email,
-            "date": date,
-            "time": time
-        },
-        line_items=[{
-            "price_data": {
-                "currency": "usd",
-                "product_data": {"name": "Séance photo"},
-                "unit_amount": 5000
-            },
-            "quantity": 1
-        }],
-        success_url="https://studio-reservation.onrender.com/payment-success",
-        cancel_url="https://studio-reservation.onrender.com/calendar"
-    )
+        return redirect(session.url)
 
-    return redirect(session.url)
-            
+    except Exception as e:
+        return f"❌ STRIPE ERROR: {str(e)}", 500
+
+
+@app.route("/payment-success")
+def payment_success():
+    return "<h1>✅ Paiement réussi</h1>"           
 #dashboard============================
 @app.route("/dashboard")
 def dashboard():
