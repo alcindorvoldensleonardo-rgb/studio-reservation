@@ -63,7 +63,34 @@ def payment_success():
     return render_template("payment_success.html")
 @app.route("/create-checkout-session", methods=["POST"])
 def create_checkout_session():
-    return "ROUTE OK"    
+    name = "Test"
+    email = "test@test.com"
+    date = "2026-02-07"
+    time = "10:00"
+
+    session = stripe.checkout.Session.create(
+        payment_method_types=["card"],
+        mode="payment",
+        customer_email=email,
+        metadata={
+            "name": name,
+            "email": email,
+            "date": date,
+            "time": time
+        },
+        line_items=[{
+            "price_data": {
+                "currency": "usd",
+                "product_data": {"name": "Séance photo"},
+                "unit_amount": 5000
+            },
+            "quantity": 1
+        }],
+        success_url="https://studio-reservation.onrender.com/payment-success",
+        cancel_url="https://studio-reservation.onrender.com/calendar"
+    )
+
+    return redirect(session.url)
             
 #dashboard============================
 @app.route("/dashboard")
