@@ -16,7 +16,11 @@ app.secret_key = "secret123"
 stripe.api_key = "sk_test_51QhH4XPBry1od3dSTcQURRRUE3GWu1IiltE1xh8kX5kvkuFK55YpsSoXdWvHm1i9h7RaNxaxZTQfYf90j6C2kGv300aa9ZxVCN"
 stripe.api_key = os.getenv("STRIPE_SECRET_KEY")
 endpoint_secret = os.getenv("STRIPE_WEBHOOK_SECRET")
+STRIPE_KEY = os.getenv("STRIPE_SECRET_KEY")
+if not STRIPE_KEY:
+    raise Exception("STRIPE_SECRET_KEY NOT FOUND")
 
+stripe.api_key = STRIPE_KEY
 def init_db():
     conn = sqlite3.connect("database.db")
     c = conn.cursor()
